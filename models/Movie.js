@@ -5,6 +5,7 @@ const movieSchema = new Schema({
   descripcion: { type: String, required: true },
   genero: { type: String, required: true },
   fecha: { type: String, required: true },
+  imagen: { type: String, required: true },
 });
 
 module.exports = mongoose.model('movies', movieSchema);
