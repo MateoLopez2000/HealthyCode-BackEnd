@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const URI =
-  "mongodb+srv://pablo:P12345678ablo@cluster0.hj1ao.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  'mongodb+srv://pablo:P12345678ablo@cluster0.hj1ao.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 mongoose
   .connect(URI, {
@@ -9,7 +9,7 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then((db) => console.log("Base de datos conectada"))
+  .then((db) => console.log('Base de datos conectada'))
   .catch((err) => console.log(err));
 
 module.exports = mongoose;
