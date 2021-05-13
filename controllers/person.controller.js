@@ -1,8 +1,8 @@
 const PersonCtrl = {};
-const Person = require("../models/Person");
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
-const config = require("../config/auth.config");
+const Person = require('../models/Person');
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
+const config = require('../config/auth.config');
 
 PersonCtrl.getList = async (req, res) => {
   const Persons = await Person.find();
@@ -23,18 +23,18 @@ PersonCtrl.savePerson = async (req, res) => {
       res.status(500).send({ message: err });
       return;
     }
-    res.send({ message: "User was registered successfully!" });
+    res.send({ message: 'User was registered successfully!' });
   });
 };
 
 PersonCtrl.signin = (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Max-Age', '1800');
+  res.setHeader('Access-Control-Allow-Headers', 'content-type');
   res.setHeader(
-    "Access-Control-Allow-Methods",
-    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+    'Access-Control-Allow-Methods',
+    'PUT, POST, GET, DELETE, PATCH, OPTIONS'
   );
   Person.findOne({
     email: req.body.email,
@@ -44,7 +44,7 @@ PersonCtrl.signin = (req, res) => {
       return;
     }
     if (!user) {
-      return res.status(404).send({ message: "User Not found." });
+      return res.status(404).send({ message: 'User Not found.' });
     }
 
     var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
@@ -52,7 +52,7 @@ PersonCtrl.signin = (req, res) => {
     if (!passwordIsValid) {
       return res.status(401).send({
         accessToken: null,
-        message: "Invalid Password!",
+        message: 'Invalid Password!',
       });
     }
 
@@ -69,5 +69,15 @@ PersonCtrl.signin = (req, res) => {
   });
 };
 
+PersonCtrl.getPersonByEmail = async (req, res) => {
+  console.log(req.params.email);
+  Person.findById(req.params.email)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json({ message: 'User does not exist' });
+    });
+};
 
 module.exports = PersonCtrl;
