@@ -7,7 +7,7 @@ MovieCtrl.getList = async (req, res) =>{
 }
 
 MovieCtrl.findOnebyname = (req, res) => {
-   Movie.findOne({
+   Movie.find({
       name: {
          $regex: req.body.name, $options: 'i'
       },
