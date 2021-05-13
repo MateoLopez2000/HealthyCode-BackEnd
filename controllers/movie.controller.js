@@ -63,7 +63,7 @@ MovieCtrl.getList = async (req, res) => {
 };
 
 MovieCtrl.findOnebyname = (req, res) => {
-  Movie.find({
+  const Movies = Movie.find({
     name: {
       $regex: req.body.name,
       $options: 'i',
@@ -85,9 +85,10 @@ MovieCtrl.findOnebyname = (req, res) => {
       imagen: movie.imagen,
     });
   });
+  res.json(Movies);
 };
 MovieCtrl.findOnebyfilter = (req, res) => {
-  Movie.find({
+  const Movies =Movie.find({
     fecha: {
       $gte: req.body.stardate,
       $lt: req.body.enddate,
@@ -113,6 +114,7 @@ MovieCtrl.findOnebyfilter = (req, res) => {
       imagen: movie.imagen,
     });
   });
+  res.json(Movies);
 };
 
 module.exports = MovieCtrl;
